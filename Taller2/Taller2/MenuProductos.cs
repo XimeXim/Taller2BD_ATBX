@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace taller_2_2024
+namespace taller2
 {
-    public partial class MenuProd : Form
+    public partial class MenuProductos : Form
     {
-        public MenuProd()
+        public MenuProductos()
         {
             InitializeComponent();
         }

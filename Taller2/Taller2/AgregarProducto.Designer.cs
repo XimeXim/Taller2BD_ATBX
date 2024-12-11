@@ -1,7 +1,7 @@
 
-namespace Taller2
+namespace taller2
 {
-    partial class AgregarProd
+    partial class AgregarProducto
     {
         /// <summary>
         /// Required designer variable.

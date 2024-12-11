@@ -1,6 +1,6 @@
-namespace taller_2_2024
+namespace taller2
 {
-    partial class ModificarProd
+    partial class ActualizarProd
     {
         /// <summary>
         /// Required designer variable.

@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Taller2;
 
-namespace taller_2_2024
+namespace taller2
 {
-    public partial class ModificarProd : Form
+    public partial class ActualizarProd : Form
     {
-        public ModificarProd()
+        public ActualizarProd()
         {
             InitializeComponent();
         }

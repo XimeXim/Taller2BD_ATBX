@@ -1,6 +1,6 @@
-﻿namespace taller_2_2024
+﻿namespace taller2
 {
-    partial class MenuProd
+    partial class MenuProductos
     {
         /// <summary>
         /// Required designer variable.

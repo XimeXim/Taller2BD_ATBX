@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Taller2;
 
-namespace Taller2
+namespace taller2
 {
-    public partial class ListarProductos : Form
+    public partial class ListaProd : Form
     {
-        public ListarProductos()
+        public ListaProd()
         {
             InitializeComponent();
         }

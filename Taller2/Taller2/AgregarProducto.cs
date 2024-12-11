@@ -11,11 +11,11 @@ using static taller_2_2024.SesionActual;
 using Taller2;
 using MySql.Data.MySqlClient;
 
-namespace Taller2
+namespace taller2
 {
-    public partial class AgregarProd : Form
+    public partial class AgregarProducto : Form
     {
-        public AgregarProd()
+        public AgregarProducto()
         {
             InitializeComponent();
         }

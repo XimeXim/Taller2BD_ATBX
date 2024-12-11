@@ -1,73 +1,28 @@
-namespace Taller2
+nusing System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace taller2
 {
-    partial class ListarProductos
+    public partial class Inicio : Form
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
+        public Inicio()
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
+            InitializeComponent();
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
+        private void buttonProd_Click(object sender, EventArgs e)
         {
-            dataGridProductos = new DataGridView();
-            comboBox1 = new ComboBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridProductos).BeginInit();
-            SuspendLayout();
-            // 
-            // dataGridProductos
-            // 
-            dataGridProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridProductos.Location = new Point(222, 70);
-            dataGridProductos.Name = "dataGridProductos";
-            dataGridProductos.Size = new Size(361, 150);
-            dataGridProductos.TabIndex = 0;
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Todos los productos", "Últimos 2 años" });
-            comboBox1.Location = new Point(42, 70);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(121, 23);
-            comboBox1.TabIndex = 1;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
-            // 
-            // ListarProductos
-            // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(comboBox1);
-            Controls.Add(dataGridProductos);
-            Name = "ListarProductos";
-            Text = "ListarProductos";
-            Load += ListarProductos_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridProductos).EndInit();
-            ResumeLayout(false);
+            MenuProd menuProductos = new MenuProd();
+            menuProductos.Show(this);
+
         }
-
-        #endregion
-
-        private DataGridView dataGridProductos;
-        private ComboBox comboBox1;
     }
 }
+

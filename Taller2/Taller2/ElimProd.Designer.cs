@@ -1,6 +1,6 @@
-namespace Taller2
+namespace taller2
 {
-    partial class EliminarProd
+    partial class ElimProd
     {
         /// <summary>
         /// Required designer variable.

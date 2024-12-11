@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
-namespace Taller2
+namespace taller2
 {
     public class ConnectMySQL
     {

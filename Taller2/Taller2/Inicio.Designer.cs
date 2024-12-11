@@ -1,6 +1,6 @@
-namespace Taller2
+namespace taller2
 {
-    partial class menuPrincipal
+    partial class Inicio
     {
         /// <summary>
         /// Required designer variable.
