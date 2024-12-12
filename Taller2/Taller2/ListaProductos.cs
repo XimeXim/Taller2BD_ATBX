@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace taller2
 {
-    public partial class ListaProd : Form
+    public partial class ListaProductos : Form
     {
         public List<string> ListarProductosDisponibles() { 
             List<string> productos = new List<string>(); 
