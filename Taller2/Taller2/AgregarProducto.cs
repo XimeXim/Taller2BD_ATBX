@@ -1,48 +1,49 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static taller_2_2024.SesionActual;
-using Taller2;
 using MySql.Data.MySqlClient;
 
 namespace taller2
 {
     public partial class AgregarProducto : Form
     {
-        public AgregarProducto()
+        public void AgregarProductoMenu(int idProducto, string codigo, string nombre, decimal precio, int stock, int idSucursal)
         {
-            InitializeComponent();
-        }
+            // Instrucción SQL para agregar un producto nuevo
+            string query = "INSERT INTO menu (id_producto, codigo, nombre, precio, stock, id_sucursal) " +
+                           "VALUES (@id_producto, @codigo, @nombre, @precio, @stock, @id_sucursal)";
 
-        private void MenuProductos_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string nombreProducto = Nombre.Text;
-            int precioProducto = int.Parse(precio.Text);
-
-            string query = "INSERT INTO producto (SucursalID, Nombre, Precio) VALUES (@codigo_sucursal, @nombre_producto, @precio)";
-
+            // Se establecen los parámetros del producto a agregar
             MySqlParameter[] parameters = {
-            new MySqlParameter("@codigo_sucursal",SesionActual.CodigoSucursal.ToString()),
-            new MySqlParameter("@nombre_producto", nombreProducto),
-            new MySqlParameter("@precio", precioProducto.ToString())
-        };
+                new MySqlParameter("@id_producto", idProducto),
+                new MySqlParameter("@codigo", codigo),
+                new MySqlParameter("@nombre", nombre),
+                new MySqlParameter("@precio", precio),
+                new MySqlParameter("@stock", stock),
+                new MySqlParameter("@id_sucursal", idSucursal)
+            };
 
-            // Ejecuta la consulta
-            ConnectMySQL.Instance.ExecuteQuery(query, parameters);
-
-            // Muestra un mensaje de éxito
-            MessageBox.Show("Producto agregado exitosamente a la sucursal.");
+            try
+            {
+                // Se logra agregar el nuevo producto
+                ConnectMySQL.Instance.ExecuteQuery(query, parameters);
+                MessageBox.Show("Producto agregado exitosamente al menú.");
+            }
+            catch (MySqlException ex)
+            {
+                // Se presentan problemas al agregar el nuevo producto
+                string errorMessage = "Error al agregar el producto: "; if (ex.Message.Contains("@id_producto")) { errorMessage += "ID del producto inválido. "; }
+                if (ex.Message.Contains("@codigo")) { errorMessage += "Código del producto inválido. "; }
+                if (ex.Message.Contains("@nombre")) { errorMessage += "Nombre del producto inválido. "; }
+                if (ex.Message.Contains("@precio")) { errorMessage += "Precio del producto inválido. "; }
+                if (ex.Message.Contains("@stock")) { errorMessage += "Stock del producto inválido. "; }
+                if (ex.Message.Contains("@id_sucursal")) { errorMessage += "ID de la sucursal inválido. "; }
+                errorMessage += ex.Message; 
+                MessageBox.Show(errorMessage);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al agregar el producto: " + ex.Message); 
+            }
         }
     }
 }
