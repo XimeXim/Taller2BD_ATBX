@@ -14,62 +14,93 @@ namespace taller2
 {
     public partial class ActualizarProd : Form
     {
+        private DataGridView dataProd;
+        private TextBox txtNuevoPrecio;
+        private Button btnActualizar;
+
         public ActualizarProd()
         {
             InitializeComponent();
+            InitializeCustomControls();
         }
 
-        private void ModificarProd_Load(object sender, EventArgs e)
+        private void InitializeCustomControls()
+        {
+            dataProd = new DataGridView();
+            dataProd.Dock = DockStyle.Fill;
+            dataProd.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataProd.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataProd.CellClick += DataProd_CellClick;
+            Controls.Add(dataProd);
+
+            // TextBox para el nuevo precio
+            txtNuevoPrecio = new TextBox();
+            txtNuevoPrecio.Location = new Point(100, 100);
+            txtNuevoPrecio.Enabled = false;
+            txtNuevoPrecio.KeyPress += TxtNuevoPrecio_KeyPress;
+            Controls.Add(txtNuevoPrecio);
+
+            // Botón Actualizar
+            btnActualizar = new Button();
+            btnActualizar.Text = "Actualizar Precio";
+            btnActualizar.Location = new Point(200, 100);
+            btnActualizar.Enabled = false;
+            btnActualizar.Click += BtnActualizar_Click;
+            Controls.Add(btnActualizar);
+
+            // Cargar los datos iniciales
+            CargarDatos();
+        }
+
+        private void CargarDatos()
         {
             string query = "SELECT ID, Nombre, Precio FROM producto WHERE SucursalID = @codigo_sucursal AND Estado = 1";
             string[] parameters = { "@codigo_sucursal", SesionActual.CodigoSucursal.ToString() };
 
             DataTable productos = ConnectMySQL.Instance.SelectQuery(query, parameters);
             dataProd.DataSource = productos;
-
-            // Ajuste de las columnas
-            dataProd.Columns["ID"].Visible = false; // Oculta el ID, puesto que no lo necesitamos
-            dataProd.Columns["Nombre"].HeaderText = "Nombre del Producto";
-            dataProd.Columns["Precio"].HeaderText = "Precio Unitario";
-            dataProd.Columns["Precio"].DefaultCellStyle.Format = "C0"; // Formato moneda
-            // Permite editar directamente en la celda
-            dataProd.Columns["Precio"].ReadOnly = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void DataProd_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Verifica que haya una fila seleccionada
-            if (dataProd.SelectedRows.Count == 0)
+            if (e.RowIndex >= 0)
             {
-                MessageBox.Show("Por favor, selecciona un producto para actualizar el precio.");
-                return;
+                txtNuevoPrecio.Enabled = true;
+                btnActualizar.Enabled = true;
+                txtNuevoPrecio.Text = dataProd.Rows[e.RowIndex].Cells["Precio"].Value.ToString();
+                txtNuevoPrecio.Focus();
             }
+        }
 
-            // Obtén los valores de la fila seleccionada
+        private void TxtNuevoPrecio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void BtnActualizar_Click(object sender, EventArgs e)
+        {
             int idProducto = (int)dataProd.SelectedRows[0].Cells["ID"].Value;
-            int newPrecio;
-
-            // Valida que el usuario ingrese un precio válido
-            if (!int.TryParse(nuevoPrecio.Text, out newPrecio) || newPrecio <= 0)
+            if (!int.TryParse(txtNuevoPrecio.Text, out int newPrecio) || newPrecio <= 0)
             {
                 MessageBox.Show("Por favor, ingresa un precio válido.");
                 return;
             }
 
-            // Consulta para actualizar el precio
-            string query = "UPDATE producto SET Precio = @nuevo_precio WHERE SucursalID = @codigo_sucursal AND ID = @id_producto";
+            if (MessageBox.Show($"¿Estás seguro de actualizar el precio del producto {dataProd.SelectedRows[0].Cells["Nombre"].Value} a ${newPrecio}?", "Confirmar actualización", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                string query = "UPDATE producto SET Precio = @nuevo_precio WHERE ID = @id_producto";
+                MySqlParameter[] parameters = {
+                    new MySqlParameter("@id_producto", idProducto),
+                    new MySqlParameter("@nuevo_precio", newPrecio)
+                };
 
-            MySqlParameter[] parameters = {
-                new MySqlParameter("@codigo_sucursal", SesionActual.CodigoSucursal.ToString()),
-                new MySqlParameter("@id_producto", idProducto),
-                new MySqlParameter("@nuevo_precio", newPrecio)
-    };
-
-            ConnectMySQL.Instance.ExecuteQuery(query, parameters);
-            MessageBox.Show("Precio actualizado exitosamente.");
-
-            ModificarProd_Load(sender, e);
+                ConnectMySQL.Instance.ExecuteQuery(query, parameters);
+                MessageBox.Show("Precio actualizado exitosamente.");
+                CargarDatos(); // Recargar los datos para reflejar los cambios
+            }
         }
     }
 }
-
