@@ -98,24 +98,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActualizarEstadoCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ActualizarProd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ActualizarProd.Designer.cs">
-      <DependentUpon>ActualizarProd.cs</DependentUpon>
+    <Compile Include="AgregarCliente.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="AgregarProducto.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AgregarProducto.Designer.cs">
-      <DependentUpon>AgregarProducto.cs</DependentUpon>
-    </Compile>
+    <Compile Include="AumentarStock.cs" />
     <Compile Include="ConnectMySQL.cs" />
-    <Compile Include="ElimProd.cs">
+    <Compile Include="EliminarCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ElimProd.Designer.cs">
-      <DependentUpon>ElimProd.cs</DependentUpon>
+    <Compile Include="EliminarProducto.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -123,25 +124,28 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Inicio.cs" />
-    <Compile Include="Inicio.Designer.cs">
-      <DependentUpon>Inicio.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ListaProd.cs">
+    <Compile Include="FormClientesNormales.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListaProd.Designer.cs">
-      <DependentUpon>ListaProd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MenuProductos.cs">
+    <Compile Include="FormClientesPremium.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MenuProductos.Designer.cs">
-      <DependentUpon>MenuProductos.cs</DependentUpon>
+    <Compile Include="ListaClientes.cs">
+      <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ListaProductoAnioActual.cs" />
+    <Compile Include="ListaProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListaProductos2Anios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListarCiudades.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sucursal.cs" />
+    <Compile Include="RegistrarPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

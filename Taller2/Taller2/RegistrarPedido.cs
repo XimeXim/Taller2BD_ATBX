@@ -59,7 +59,7 @@ namespace taller2
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
             // Obtener el producto seleccionado y la cantidad
-            int idProducto = 
+            //int idProducto = 
             int cantidad = int.Parse(txtCantidad.Text);
 
             // Buscar el producto en el DataTable
@@ -96,16 +96,28 @@ namespace taller2
         private void btnRegistrarPedido_Click(object sender, EventArgs e)
         {
             // Obtener los datos del pedido
-            int idCliente = 
+            int idCliente = (int)cmbClientes.SelectedValue;
+            //int idSucursal = ; 
             DateTime fecha = dtpFecha.Value;
-            decimal subtotal = 
-            decimal descuento = 
-            decimal total = subtotal + descuento;
+            decimal subtotal = 0;
+            foreach (var producto in productosEnCarrito)
+            {
+                subtotal += producto.Precio * producto.Cantidad;
+            }
+            decimal descuento = 0;
+
+            // Calcular el descuento para clientes Premium
+            if (esClientePremium(idCliente))
+            {
+                descuento = subtotal * 0.2m;
+            }
+
+            // Calcular el total final
+            decimal total = subtotal - descuento + (subtotal * 0.1m); // Aplicar propina
 
             // Insertar un nuevo registro en la tabla Ventas
-            string queryVentas = "INSERT INTO Ventas (id_cliente, fecha, propina, total) VALUES (@id_cliente, @fecha, 0, @total)";
+            string queryVentas = "INSERT INTO Ventas (id_cliente, id_sucursal, fecha, propina, total) VALUES (@id_cliente, @id_sucursal, @fecha, @total * 0.1, @total)";
 
-            // Obtener el ID de la venta recién insertada
             int idVenta = (int)ConnectMySQL.Instance.ExecuteScalar(queryVentas);
 
             // Insertar los detalles del pedido en la tabla Detalle_Ventas
@@ -117,7 +129,11 @@ namespace taller2
             MessageBox.Show("Pedido registrado exitosamente.");
         }
 
-        // Clase para representar un producto en el carrito
+        private bool esClientePremium(int idCliente)
+        {
+            // Consulta para verificar si el cliente es Premium
+            string query = "SELECT tipo_cliente FROM Clientes WHERE id_cliente = @id_cliente";
+        }
         private class ProductoCarrito
         {
             public int Id { get; set; }

@@ -79,4 +79,5 @@ namespace taller2
             MessageBox.Show("Estado del cliente actualizado exitosamente.");
             CargarClientes(); 
     }
+    }
 }

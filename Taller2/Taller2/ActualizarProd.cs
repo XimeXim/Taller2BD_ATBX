@@ -1,4 +1,4 @@
-using MySql.Data.MySqlClient;
+ï»¿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +24,11 @@ namespace taller2
             InitializeCustomControls();
         }
 
+        private void InitializeComponent()
+        {
+            throw new NotImplementedException();
+        }
+
         private void InitializeCustomControls()
         {
             dataProd = new DataGridView();
@@ -40,7 +45,7 @@ namespace taller2
             txtNuevoPrecio.KeyPress += TxtNuevoPrecio_KeyPress;
             Controls.Add(txtNuevoPrecio);
 
-            // Botón Actualizar
+            // Bot n Actualizar
             btnActualizar = new Button();
             btnActualizar.Text = "Actualizar Precio";
             btnActualizar.Location = new Point(200, 100);
@@ -85,11 +90,11 @@ namespace taller2
             int idProducto = (int)dataProd.SelectedRows[0].Cells["ID"].Value;
             if (!int.TryParse(txtNuevoPrecio.Text, out int newPrecio) || newPrecio <= 0)
             {
-                MessageBox.Show("Por favor, ingresa un precio válido.");
+                MessageBox.Show("Por favor, ingresa un precio v lido.");
                 return;
             }
 
-            if (MessageBox.Show($"¿Estás seguro de actualizar el precio del producto {dataProd.SelectedRows[0].Cells["Nombre"].Value} a ${newPrecio}?", "Confirmar actualización", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show($" Est s seguro de actualizar el precio del producto {dataProd.SelectedRows[0].Cells["Nombre"].Value} a ${newPrecio}?", "Confirmar actualizaci n", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 string query = "UPDATE producto SET Precio = @nuevo_precio WHERE ID = @id_producto";
                 MySqlParameter[] parameters = {

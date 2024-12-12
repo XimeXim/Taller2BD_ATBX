@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
-namespace taller_2_2024
+namespace taller2
 {
 	public partial class FormClientesPremium : Form
 	{
